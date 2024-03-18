@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--Nesta observação vocês devem colocar os nomes dos alunos que ajudaram na atividade.
+Um aluno por linha e coloque o nome completo, o respectiv número e a turma.
+Nome:                                       nº:         Turma:              
+Nome:                                       nº:         Turma:              
+Nome:                                       nº:         Turma:              
+Nome:                                       nº:         Turma:              
+Nome:                                       nº:         Turma:              
+Nome:                                       nº:         Turma:              
+Nome:                                       nº:         Turma:              -->
+<html lang="pt-BR">
+    <head>
+        <title>Primos V1 while</title>        
+        <meta charset="UTF-8">          
+        <script>
+            function recebeNumero(){
+                var canvas = document.getElementById('meuCanvas');
+                if (canvas.getContext){
+                    var cntxt = canvas.getContext('2d');
+                    var maxWidth = 300;
+                    var lineHeight = 35;
+                    var x = (canvas.width - maxWidth) / 2;
+                    var y = 60;
+                    var grad = cntxt.createLinearGradient(0, 0, canvas.width, 0);
+                    grad.addColorStop(0,"rgb(255, 0, 0)");
+                    grad.addColorStop(0.5, "rgb(255, 255, 255)");
+                    grad.addColorStop(1,"rgb(0, 0, 0)");
+                   
+                    var N1 = parseInt(document.getElementById("Numero1").value, 10);
+                    cntxt.fillStyle = "rgb(255, 255, 255)";
+                    cntxt.fillRect (0, 0, canvas.width, canvas.height);                    
+                    cntxt.font="30px Comic Sans MS";
+                    cntxt.fillStyle = grad;
+                    primo(cntxt, N1, x, y);
+                }
+            }
+            function primo(cntxt, N1, x, y) {
+                let contador = 3;
+                let line = N1 + " ";
+                console.log("O numero digitado foi " + line);
+                let resposta = "é primo!"
+                console.log("O valor dentro de resposta é " + resposta);
+                if(parseInt(N1) < 2 || (parseInt(N1)%2 == 0 && parseInt(N1) != 2)){
+                    resposta = "não é primo!";
+                }
+                else{
+                    while(contador <= parseInt(N1)/2){
+                        if(parseInt(N1)%contador == 0){
+                            resposta = "não é primo!"
+                            break;
+                        }
+                        contador += 2;
+                    }
+                }
+                line = line + resposta;
+                                               
+                cntxt.fillText(line, x, y);
+                cntxt.strokeText(line, x, y);
+                document.getElementById("Numero1").value = "";
+                document.getElementById("Numero1").focus();
+              }
+        </script>
+    </head>
+    <body>
+        <div>
+            <h1>Primos</h1>
+            <label style="font-size: 20px;">Número 1</label>
+            <input type="text" id="Numero1" autofocus><br>
+            <button onclick="recebeNumero()">Primo?</button><br><br>
+            <canvas id="meuCanvas" width="400" height="400" style="border:1px solid #000000; background-color: white;"></canvas>
+        </div>
+    </body>
+</html>
